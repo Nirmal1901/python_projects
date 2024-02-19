@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Scraping UI</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<form id="urlForm">
+    <label for="url">Enter URL:</label><br>
+    <input type="text" id="url" name="url" placeholder="Enter URL here..." required><br>
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+document.getElementById("urlForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get URL entered by the user
+    var url = document.getElementById("url").value;
+
+    // Send URL to n8n workflow using HTTP POST request
+    fetch("http://127.0.0.1:8080/webhook", { // Replace this URL with your local URL
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            url: url
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to send URL to n8n workflow");
+        }
+        // Reset form after successful submission
+        document.getElementById("urlForm").reset();
+        alert("URL sent successfully!");
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to send URL. Please try again later.");
+    });
+});
+</script>
+
+</body>
+</html>
