@@ -15,6 +15,7 @@ def get_video_transcript(video_id):
         return transcript_text.strip()
     except Exception as e:
         return str(e), 500
+        
 
 @app.route('/get_transcript', methods=['GET'])
 def fetch_transcript():
