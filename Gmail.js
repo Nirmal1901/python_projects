@@ -12,7 +12,7 @@ const sendMailController = async (req, res) => {
         user: 'devnirmalnathnai@gmail.com',
         pass: 'Gmail@1901'
       }
-    });
+    })
 
     const mailOptions = {
       from: '"Nirmal" <devnirmalnathani@gmail.com>',
